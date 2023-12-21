@@ -1,27 +1,32 @@
-import React from 'react';
+import { Outlet } from 'react-router-dom';
+import { useContext } from 'react';
+import cn from 'classnames';
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
+import { GlobalContext } from './Context/GlobalContext';
+
 import './App.scss';
 
-interface Props {
-  onClick: () => void;
-}
+const App = () => {
+  const { isMobMenuVisible } = useContext(GlobalContext);
 
-export const Provider: React.FC<Props> = React.memo(
-  ({ onClick, children }) => (
-    <button
-      type="button"
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  ),
-);
-
-export const App: React.FC = () => {
   return (
-    <div className="starter">
-      <Provider onClick={() => ({})}>
-        <TodoList />
-      </Provider>
+    <div
+      className={cn('App', {
+        'no-scroll': isMobMenuVisible,
+      })}
+    >
+      <Header />
+      <main
+        className={cn('main', {
+          'main--blur': isMobMenuVisible,
+        })}
+      >
+        <Outlet />
+      </main>
+      <Footer />
     </div>
   );
 };
+
+export default App;
