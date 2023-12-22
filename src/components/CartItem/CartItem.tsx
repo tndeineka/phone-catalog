@@ -82,7 +82,7 @@ export const CartItem: React.FC<Props> = ({ item }) => {
           className="products-slider_btn page-btns"
           onClick={() => handleCartItemChange('reduce')}
         >
-          {item.count > 1 ? (
+          {item.count <= 1 ? (
             <img src={ICONS.iconMinusDisable} alt="Minus disable" />
           ) : (
             <img src={ICONS.iconMinus} alt="Minus active" />
